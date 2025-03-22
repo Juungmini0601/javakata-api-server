@@ -21,7 +21,7 @@ import lombok.NoArgsConstructor;
  * Created on : 2025. 3. 17.
  */
 @Getter
-@AllArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
 @Table(name = "problems")
