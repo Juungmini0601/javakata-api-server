@@ -12,7 +12,6 @@ public enum ErrorType {
 	VALIDATION_ERROR(HttpStatus.BAD_REQUEST, ErrorCode.E400, "validation error has occurred", LogLevel.DEBUG),
 	AUTHENTICATION_ERROR(HttpStatus.UNAUTHORIZED, ErrorCode.E401, "authentication error has occurred", LogLevel.DEBUG),
 	AUTHORIZATION_ERROR(HttpStatus.FORBIDDEN, ErrorCode.E403, "authorization error has occurred", LogLevel.DEBUG),
-	CONFLICT_ERROR(HttpStatus.CONFLICT, ErrorCode.E409, "conflict error has occurred", LogLevel.DEBUG),
 
 	DEFAULT_ERROR(
 		HttpStatus.INTERNAL_SERVER_ERROR,
