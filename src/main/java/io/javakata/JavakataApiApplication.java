@@ -2,11 +2,10 @@ package io.javakata;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
-import io.javakata.common.config.JwtConfig;
-
-@EnableConfigurationProperties(value = JwtConfig.class)
+// TODO 여기 길어지면 제거 예정
+@EnableJpaAuditing
 @SpringBootApplication
 public class JavakataApiApplication {
 
