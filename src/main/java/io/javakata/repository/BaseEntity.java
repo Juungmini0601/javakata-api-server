@@ -1,4 +1,4 @@
-package io.javakata.entity;
+package io.javakata.repository;
 
 import java.time.LocalDateTime;
 

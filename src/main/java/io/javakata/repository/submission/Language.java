@@ -1,4 +1,4 @@
-package io.javakata.entity.submission;
+package io.javakata.repository.submission;
 
 /**
  * @author    : kimjungmin

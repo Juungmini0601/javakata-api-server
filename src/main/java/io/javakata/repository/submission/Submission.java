@@ -1,8 +1,8 @@
-package io.javakata.entity.submission;
+package io.javakata.repository.submission;
 
-import io.javakata.entity.BaseEntity;
-import io.javakata.entity.problem.Problem;
-import io.javakata.entity.user.User;
+import io.javakata.repository.BaseEntity;
+import io.javakata.repository.problem.Problem;
+import io.javakata.repository.user.User;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;

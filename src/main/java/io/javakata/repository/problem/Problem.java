@@ -1,6 +1,8 @@
-package io.javakata.entity.user;
+package io.javakata.repository.problem;
 
-import io.javakata.entity.BaseEntity;
+import java.time.LocalDateTime;
+
+import io.javakata.repository.BaseEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -22,27 +24,26 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
-@Table(name = "users")
-public class User extends BaseEntity {
+@Table(name = "problems")
+public class Problem extends BaseEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@Column(nullable = false, unique = true)
-	private String email;
-
 	@Column(nullable = false)
-	private String password;
-
-	@Column(nullable = false)
-	private String nickname;
+	private String title;
 
 	@Enumerated(EnumType.STRING)
-	@Column(nullable = false)
-	private Role role;
+	private Level level;
 
-	@Enumerated(EnumType.STRING)
-	@Column
-	private OAuthProvider oAuthProvider;
+	@Column(nullable = false, columnDefinition = "TEXT")
+	private String description;
 
+	@Column(nullable = false, columnDefinition = "TEXT")
+	private String baseCode;
+
+	@Column(nullable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+	private LocalDateTime createdAt;
+
+	private LocalDateTime updatedAt;
 }

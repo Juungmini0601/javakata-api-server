@@ -1,4 +1,4 @@
-package io.javakata.entity.problem;
+package io.javakata.repository.problem;
 
 /**
  * @author    : kimjungmin

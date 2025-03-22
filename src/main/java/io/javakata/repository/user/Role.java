@@ -1,4 +1,4 @@
-package io.javakata.entity.user;
+package io.javakata.repository.user;
 
 /**
  * @author    : kimjungmin
