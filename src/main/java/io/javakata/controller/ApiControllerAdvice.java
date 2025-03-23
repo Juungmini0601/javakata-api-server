@@ -8,7 +8,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import io.javakata.common.error.ErrorType;
@@ -17,15 +16,15 @@ import io.javakata.common.response.ApiResponse;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-@RestControllerAdvice(assignableTypes = RestController.class)
+@RestControllerAdvice
 public class ApiControllerAdvice {
 
 	@ExceptionHandler(JavaKataException.class)
 	public ResponseEntity<ApiResponse<?>> handleJavaKataException(JavaKataException exception) {
 		switch (exception.getErrorType().getLogLevel()) {
-			case ERROR -> log.error("CoreException : {}", exception.getMessage(), exception);
-			case WARN -> log.warn("CoreException : {}", exception.getMessage(), exception);
-			default -> log.info("CoreException : {}", exception.getMessage(), exception);
+			case ERROR -> log.error("JavaKataException : {}", exception.getMessage(), exception);
+			case WARN -> log.warn("JavaKataException : {}", exception.getMessage(), exception);
+			default -> log.info("JavaKataException : {}", exception.getMessage(), exception);
 		}
 
 		return new ResponseEntity<>(
