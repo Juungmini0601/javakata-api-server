@@ -37,6 +37,10 @@ import io.javakata.service.user.UserService;
 @Import(SecurityConfig.class)
 @WebMvcTest({UserController.class, ApiControllerAdvice.class})
 public class UserControllerUnitTest {
+
+	final String RESULT_SUCCESS = "SUCCESS";
+	final String RESULT_ERROR = "ERROR";
+
 	// WebMvcTest는 의존성이 끊겨서 이렇게 사용해야함.
 	@MockitoBean
 	private UserService userService;
@@ -51,6 +55,7 @@ public class UserControllerUnitTest {
 	@DisplayName("회원 생성 단위 테스트")
 	class CreateUserTest {
 
+		final String baseEndPoint = "/api/v1/users";
 		CreateUserRequest request;
 
 		@BeforeEach
@@ -64,12 +69,12 @@ public class UserControllerUnitTest {
 			User user = userFromCreateUserRequest(request);
 			given(userService.register(any(CreateUserRequest.class))).willReturn(user);
 
-			mockMvc.perform(post("/api/v1/users")
+			mockMvc.perform(post(baseEndPoint)
 					.contentType(MediaType.APPLICATION_JSON)
 					.content(objectMapper.writeValueAsString(request)))
 				.andDo(print())
 				.andExpect(status().isOk())
-				.andExpect(jsonPath("$.result").value("SUCCESS"))
+				.andExpect(jsonPath("$.result").value(RESULT_SUCCESS))
 				.andExpect(jsonPath("$.data.id").isNumber())
 				.andExpect(jsonPath("$.data.nickname").value(request.nickname()))
 				.andExpect(jsonPath("$.data.email").value(request.email()))
@@ -83,12 +88,12 @@ public class UserControllerUnitTest {
 			given(userService.register(any(CreateUserRequest.class)))
 				.willThrow(new JavaKataException(ErrorType.CONFLICT_ERROR, "duplicated email:" + request.email()));
 
-			mockMvc.perform(post("/api/v1/users")
+			mockMvc.perform(post(baseEndPoint)
 					.contentType(MediaType.APPLICATION_JSON)
 					.content(objectMapper.writeValueAsString(request)))
 				.andDo(print())
 				.andExpect(status().isConflict())
-				.andExpect(jsonPath("$.result").value("ERROR"))
+				.andExpect(jsonPath("$.result").value(RESULT_ERROR))
 				.andExpect(jsonPath("$.error.code").value(ErrorType.CONFLICT_ERROR.getCode().toString()));
 		}
 	}
