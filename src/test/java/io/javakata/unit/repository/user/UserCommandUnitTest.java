@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.Import;
 
+import io.javakata.common.config.JpaConfig;
 import io.javakata.repository.user.User;
 import io.javakata.repository.user.UserCommand;
 
@@ -19,7 +20,7 @@ import io.javakata.repository.user.UserCommand;
  * Created on : 2025. 3. 23.
  */
 @DataJpaTest
-@Import(UserCommand.class)
+@Import({UserCommand.class, JpaConfig.class})
 public class UserCommandUnitTest {
 
 	@Autowired
