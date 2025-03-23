@@ -3,6 +3,7 @@ package io.javakata.fixtrue;
 import net.jqwik.api.Arbitraries;
 
 import io.javakata.controller.auth.request.SigninRequest;
+import io.javakata.controller.auth.request.TokenRefreshRequest;
 import io.javakata.controller.user.request.CreateUserRequest;
 import io.javakata.repository.auth.Token;
 import io.javakata.repository.auth.TokenClaim;
@@ -44,8 +45,18 @@ public class FixtureUtil {
 		return beanValidationFixtureMonkey.giveMeBuilder(User.class)
 			.set("id", Arbitraries.longs().between(1L, 10L))
 			.set("email", request.email())
-			.set("password", Arbitraries.strings().withCharRange('a', 'z').ofMinLength(10).ofMaxLength(200))
+			.set("password", request.password())
 			.set("nickname", request.nickname())
+			.set("role", Role.ROLE_USER)
+			.set("oAuthProvider", OAuthProvider.LOCAL)
+			.sample();
+	}
+
+	public static User userFromSigninRequest(SigninRequest request) {
+		return beanValidationFixtureMonkey.giveMeBuilder(User.class)
+			.set("id", Arbitraries.longs().between(1L, 10L))
+			.set("email", request.email())
+			.set("password", request.password())
 			.set("role", Role.ROLE_USER)
 			.set("oAuthProvider", OAuthProvider.LOCAL)
 			.sample();
@@ -65,5 +76,9 @@ public class FixtureUtil {
 
 	public static SigninRequest defaultSigninRequest() {
 		return beanValidationFixtureMonkey.giveMeOne(SigninRequest.class);
+	}
+
+	public static TokenRefreshRequest defaultTokenRefreshRequest() {
+		return beanValidationFixtureMonkey.giveMeOne(TokenRefreshRequest.class);
 	}
 }
