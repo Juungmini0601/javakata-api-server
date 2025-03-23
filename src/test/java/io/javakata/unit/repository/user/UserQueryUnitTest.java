@@ -12,7 +12,6 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.context.annotation.Import;
 
-import io.javakata.common.config.JpaConfig;
 import io.javakata.repository.user.User;
 import io.javakata.repository.user.UserQuery;
 
@@ -21,7 +20,7 @@ import io.javakata.repository.user.UserQuery;
  * Created on : 2025. 3. 23.
  */
 @DataJpaTest
-@Import({UserQuery.class, JpaConfig.class})
+@Import(UserQuery.class)
 public class UserQueryUnitTest {
 	@Autowired
 	private TestEntityManager em;
