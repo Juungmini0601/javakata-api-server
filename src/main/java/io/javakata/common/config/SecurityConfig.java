@@ -40,9 +40,9 @@ public class SecurityConfig {
 
 		http.authorizeHttpRequests(authorize -> authorize
 			.requestMatchers(AUTH_ALLOWLIST).permitAll()
-			.requestMatchers(HttpMethod.POST, "/api/*/users").permitAll()
-			.requestMatchers(HttpMethod.POST, "/api/*/auth/token").permitAll()
-			.requestMatchers(HttpMethod.POST, "/api/*/auth/token/refresh").permitAll()
+			.requestMatchers(HttpMethod.POST, "/api/**/users").permitAll()
+			.requestMatchers(HttpMethod.POST, "/api/**/auth/token").permitAll()
+			.requestMatchers(HttpMethod.POST, "/api/**/auth/token/refresh").permitAll()
 			.anyRequest().authenticated()
 		);
 
