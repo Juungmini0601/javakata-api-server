@@ -35,9 +35,9 @@ public class FixtureUtil {
 
 	public static User userFromCreateUserRequest(CreateUserRequest request) {
 		return beanValidationFixtureMonkey.giveMeBuilder(User.class)
-			.set("id", Arbitraries.longs().between(1L, 10L))
+			.set("id", null)
 			.set("email", request.email())
-			.set("password", Arbitraries.strings().withCharRange('a', 'z').ofMinLength(10).ofMaxLength(200))
+			.set("password", request.password())
 			.set("nickname", request.nickname())
 			.set("role", Role.ROLE_USER)
 			.set("oAuthProvider", OAuthProvider.LOCAL)
