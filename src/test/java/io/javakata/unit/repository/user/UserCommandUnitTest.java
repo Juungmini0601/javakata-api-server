@@ -27,8 +27,8 @@ public class UserCommandUnitTest {
 	private UserCommand userCommand;
 
 	@Nested
-	@DisplayName("유저 생성 테스트")
-	class CreateUserTest {
+	@DisplayName("save 단위 테스트")
+	class SaveTest {
 		User user;
 
 		@BeforeEach
