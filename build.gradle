@@ -49,6 +49,10 @@ dependencies {
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
 
+    // map struct lombok보다 뒤에 선언 해야 함
+    implementation 'org.mapstruct:mapstruct:1.5.3.Final'
+    annotationProcessor 'org.mapstruct:mapstruct-processor:1.5.3.Final'
+
     testImplementation 'org.testcontainers:junit-jupiter'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
     // Security
@@ -57,6 +61,12 @@ dependencies {
     // TestContainer
     testImplementation 'org.springframework.boot:spring-boot-testcontainers'
     testImplementation 'org.testcontainers:mysql'
+    // FixtureMonkey
+    testImplementation("com.navercorp.fixturemonkey:fixture-monkey-starter:1.1.8")
+    testImplementation("com.navercorp.fixturemonkey:fixture-monkey-jakarta-validation:1.1.10")
+    // Test H2
+    testImplementation 'com.h2database:h2'
+
 
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
     developmentOnly 'org.springframework.boot:spring-boot-docker-compose'
