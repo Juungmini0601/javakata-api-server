@@ -2,7 +2,10 @@ package io.javakata.fixtrue;
 
 import net.jqwik.api.Arbitraries;
 
+import io.javakata.controller.auth.request.SigninRequest;
 import io.javakata.controller.user.request.CreateUserRequest;
+import io.javakata.repository.auth.Token;
+import io.javakata.repository.auth.TokenClaim;
 import io.javakata.repository.user.OAuthProvider;
 import io.javakata.repository.user.Role;
 import io.javakata.repository.user.User;
@@ -21,6 +24,10 @@ public class FixtureUtil {
 		.plugin(new JakartaValidationPlugin())
 		.defaultNotNull(true)
 		.build();
+
+	public static User defaultUser() {
+		return beanValidationFixtureMonkey.giveMeOne(User.class);
+	}
 
 	public static User defaultUserWithOutId() {
 		return beanValidationFixtureMonkey.giveMeBuilder(User.class)
@@ -44,7 +51,19 @@ public class FixtureUtil {
 			.sample();
 	}
 
+	public static TokenClaim defaultTokenClaim() {
+		return beanValidationFixtureMonkey.giveMeOne(TokenClaim.class);
+	}
+
+	public static Token defaultToken() {
+		return beanValidationFixtureMonkey.giveMeOne(Token.class);
+	}
+
 	public static CreateUserRequest defaultCreateUserRequest() {
 		return beanValidationFixtureMonkey.giveMeOne(CreateUserRequest.class);
+	}
+
+	public static SigninRequest defaultSigninRequest() {
+		return beanValidationFixtureMonkey.giveMeOne(SigninRequest.class);
 	}
 }
