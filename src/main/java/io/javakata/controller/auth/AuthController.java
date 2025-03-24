@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 import io.javakata.common.response.ApiResponse;
 import io.javakata.controller.auth.request.SigninRequest;
 import io.javakata.controller.auth.request.TokenRefreshRequest;
+import io.javakata.controller.auth.response.GetAuthResponse;
 import io.javakata.controller.auth.response.SinginResponse;
 import io.javakata.controller.auth.response.TokenRefreshResponse;
 import io.javakata.controller.user.UserMapper;
@@ -31,7 +32,7 @@ public class AuthController {
 	private final UserService userService;
 
 	@GetMapping("/api/v1/auth")
-	public ApiResponse<?> getAuth(Authentication authentication) {
+	public ApiResponse<GetAuthResponse> getAuth(Authentication authentication) {
 		final String email = authentication.getName();
 		User user = userService.fetchUserByEmail(email);
 
