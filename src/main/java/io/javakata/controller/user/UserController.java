@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import io.javakata.common.response.ApiResponse;
 import io.javakata.controller.user.request.CreateUserRequest;
-import io.javakata.controller.user.request.CreateUserResponse;
+import io.javakata.controller.user.response.CreateUserResponse;
 import io.javakata.repository.user.User;
 import io.javakata.service.user.UserService;
 import jakarta.validation.Valid;

@@ -1,5 +1,7 @@
 package io.javakata.controller.auth;
 
+import org.springframework.security.core.Authentication;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -23,6 +25,12 @@ import lombok.RequiredArgsConstructor;
 public class AuthController {
 
 	private final AuthService authService;
+
+	@GetMapping("/api/v1/auth")
+	public ApiResponse<?> getAuth(Authentication authentication) {
+
+		return ApiResponse.success();
+	}
 
 	@PostMapping("/api/v1/auth/token")
 	public ApiResponse<SinginResponse> signin(@Valid @RequestBody SigninRequest request) {

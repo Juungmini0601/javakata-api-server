@@ -1,4 +1,4 @@
-package io.javakata.controller.user.request;
+package io.javakata.controller.user.response;
 
 import java.time.LocalDateTime;
 
