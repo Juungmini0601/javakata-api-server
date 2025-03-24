@@ -114,4 +114,24 @@ public class UserServiceUnitTest {
 				.hasMessage(ErrorType.AUTHENTICATION_ERROR.getMessage());
 		}
 	}
+
+	@Nested
+	@DisplayName("회원 삭제 단위 테스트")
+	class DeleteUserByEmailTest {
+
+		User user;
+
+		@BeforeEach
+		void setUp() {
+			user = defaultUser();
+		}
+
+		@Test
+		@DisplayName("성공")
+		void success() {
+			doNothing().when(userCommand).delete(anyString());
+			
+			userService.deleteUser(user.getEmail());
+		}
+	}
 }
