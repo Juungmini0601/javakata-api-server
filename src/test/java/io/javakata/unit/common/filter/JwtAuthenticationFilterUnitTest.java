@@ -51,13 +51,12 @@ public class JwtAuthenticationFilterUnitTest {
 	@DisplayName("헤더가 토큰을 가지면 Authentication을 세팅한다.")
 	void success() throws Exception {
 		TokenClaim tokenClaim = new TokenClaim(user.getEmail(), List.of(user.getRole().toString()));
-
-		when(tokenService.parseToken(anyString())).thenReturn(tokenClaim);
-
 		MockHttpServletRequest request = new MockHttpServletRequest();
 		request.addHeader("Authorization", "Bearer " + token.getAccessToken());
 		MockHttpServletResponse response = new MockHttpServletResponse();
 		MockFilterChain chain = new MockFilterChain();
+
+		when(tokenService.parseToken(anyString())).thenReturn(tokenClaim);
 
 		filter.doFilter(request, response, chain);
 
