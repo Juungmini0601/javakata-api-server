@@ -17,14 +17,21 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.access.AccessDeniedHandler;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-// https://github.com/Juungmini0601/DevLog-Server/blob/main/server/src/main/java/com/raon/devlog/config/SecurityConfig.java
+import io.javakata.common.filter.JwtAuthenticationFilter;
+import io.javakata.service.auth.TokenService;
+import lombok.RequiredArgsConstructor;
+
 @Configuration
 @EnableWebSecurity
+@RequiredArgsConstructor
 public class SecurityConfig {
 	private static final String[] AUTH_ALLOWLIST = {
 		"/swagger-ui/**", "/images/**",
 	};
+
+	private final TokenService tokenService;
 
 	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -36,7 +43,7 @@ public class SecurityConfig {
 		);
 		http.formLogin(AbstractHttpConfigurer::disable);
 
-		// http.addFilterBefore(new JwtAuthFilter(jwtTokenProvider), UsernamePasswordAuthenticationFilter.class);
+		http.addFilterBefore(new JwtAuthenticationFilter(tokenService), UsernamePasswordAuthenticationFilter.class);
 
 		http.authorizeHttpRequests(authorize -> authorize
 			.requestMatchers(AUTH_ALLOWLIST).permitAll()
