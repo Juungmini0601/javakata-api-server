@@ -23,19 +23,19 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import io.javakata.common.config.SecurityConfig;
 import io.javakata.common.error.ErrorType;
 import io.javakata.common.error.JavaKataException;
-import io.javakata.controller.ApiControllerAdvice;
 import io.javakata.controller.user.UserController;
 import io.javakata.controller.user.request.CreateUserRequest;
 import io.javakata.repository.user.Role;
 import io.javakata.repository.user.User;
+import io.javakata.service.auth.TokenService;
 import io.javakata.service.user.UserService;
 
 /**
  * @author    : kimjungmin
  * Created on : 2025. 3. 23.
  */
-@Import(SecurityConfig.class)
-@WebMvcTest({UserController.class, ApiControllerAdvice.class})
+@Import({SecurityConfig.class})
+@WebMvcTest({UserController.class})
 public class UserControllerUnitTest {
 
 	final String RESULT_SUCCESS = "SUCCESS";
@@ -44,6 +44,9 @@ public class UserControllerUnitTest {
 	// WebMvcTest는 의존성이 끊겨서 이렇게 사용해야함.
 	@MockitoBean
 	private UserService userService;
+
+	@MockitoBean
+	private TokenService tokenService;
 
 	@Autowired
 	private MockMvc mockMvc;

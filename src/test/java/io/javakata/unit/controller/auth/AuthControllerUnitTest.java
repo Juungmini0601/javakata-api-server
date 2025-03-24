@@ -27,12 +27,14 @@ import io.javakata.controller.auth.request.SigninRequest;
 import io.javakata.controller.auth.request.TokenRefreshRequest;
 import io.javakata.repository.auth.Token;
 import io.javakata.service.auth.AuthService;
+import io.javakata.service.auth.TokenService;
+import io.javakata.service.user.UserService;
 
 /**
  * @author    : kimjungmin
  * Created on : 2025. 3. 23.
  */
-@Import(SecurityConfig.class)
+@Import({SecurityConfig.class})
 @WebMvcTest(AuthController.class)
 public class AuthControllerUnitTest {
 
@@ -41,6 +43,12 @@ public class AuthControllerUnitTest {
 
 	@MockitoBean
 	private AuthService authService;
+
+	@MockitoBean
+	private TokenService tokenService;
+
+	@MockitoBean
+	private UserService userService;
 
 	@Autowired
 	private MockMvc mockMvc;
