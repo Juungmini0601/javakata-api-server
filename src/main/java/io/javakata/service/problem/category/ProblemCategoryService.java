@@ -1,5 +1,7 @@
 package io.javakata.service.problem.category;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,6 +23,11 @@ import lombok.RequiredArgsConstructor;
 public class ProblemCategoryService {
 	private final ProblemCategoryCommand problemCategoryCommand;
 	private final ProblemCategoryQuery problemCategoryQuery;
+
+	@Transactional(readOnly = true)
+	public List<ProblemCategory> findAll() {
+		return problemCategoryQuery.findAll();
+	}
 
 	@Transactional
 	public ProblemCategory createCategory(CreateProblemCategoryRequest request) {
