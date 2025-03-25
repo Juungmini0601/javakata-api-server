@@ -38,4 +38,8 @@ public class ProblemCategory extends BaseEntity {
 			.name(name)
 			.build();
 	}
+
+	public void updateName(String name) {
+		this.name = name;
+	}
 }

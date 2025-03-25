@@ -1,5 +1,7 @@
 package io.javakata.repository.problem.category;
 
+import java.util.Optional;
+
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,5 +19,10 @@ public class ProblemCategoryQuery {
 	@Transactional(readOnly = true)
 	public boolean existsByName(final String name) {
 		return problemCategoryRepository.existsByName(name);
+	}
+
+	@Transactional(readOnly = true)
+	public Optional<ProblemCategory> findById(final Long id) {
+		return problemCategoryRepository.findById(id);
 	}
 }

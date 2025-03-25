@@ -5,6 +5,7 @@ import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 
 import io.javakata.controller.admin.problem.category.response.CreateProblemCategoryResponse;
+import io.javakata.controller.admin.problem.category.response.UpdateProblemCategoryResponse;
 import io.javakata.repository.problem.category.ProblemCategory;
 
 /**
@@ -18,4 +19,7 @@ public interface ProblemCategoryMapper {
 
 	@Mapping(source = "name", target = "categoryName")
 	CreateProblemCategoryResponse toCreateProblemCategoryResponse(ProblemCategory category);
+
+	@Mapping(source = "name", target = "categoryName")
+	UpdateProblemCategoryResponse toUpdateProblemCategoryResponse(ProblemCategory category);
 }
