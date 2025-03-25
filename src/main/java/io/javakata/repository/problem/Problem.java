@@ -1,8 +1,7 @@
 package io.javakata.repository.problem;
 
-import java.time.LocalDateTime;
-
 import io.javakata.repository.BaseEntity;
+import io.javakata.repository.problem.category.ProblemCategory;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -10,6 +9,8 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -51,8 +52,7 @@ public class Problem extends BaseEntity {
 	@Column(nullable = false, columnDefinition = "TEXT")
 	private String baseCode;
 
-	@Column(nullable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
-	private LocalDateTime createdAt;
-
-	private LocalDateTime updatedAt;
+	@ManyToOne
+	@JoinColumn(name = "category_id", nullable = false)
+	private ProblemCategory category;
 }
