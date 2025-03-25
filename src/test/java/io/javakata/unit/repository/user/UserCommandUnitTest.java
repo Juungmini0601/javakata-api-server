@@ -32,7 +32,6 @@ public class UserCommandUnitTest {
 
 	@Autowired
 	private UserQuery userQuery;
-	;
 
 	@Autowired
 	private UserCommand userCommand;
