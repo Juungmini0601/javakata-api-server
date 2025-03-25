@@ -6,10 +6,10 @@ import java.util.stream.LongStream;
 
 import net.jqwik.api.Arbitraries;
 
-import io.javakata.controller.admin.problem.category.request.CreateProblemCategoryRequest;
-import io.javakata.controller.admin.problem.category.request.UpdateProblemCategoryRequest;
 import io.javakata.controller.auth.request.SigninRequest;
 import io.javakata.controller.auth.request.TokenRefreshRequest;
+import io.javakata.controller.problem.category.request.CreateProblemCategoryRequest;
+import io.javakata.controller.problem.category.request.UpdateProblemCategoryRequest;
 import io.javakata.controller.user.request.CreateUserRequest;
 import io.javakata.repository.auth.Token;
 import io.javakata.repository.auth.TokenClaim;

@@ -6,7 +6,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import io.javakata.common.response.ApiResponse;
-import io.javakata.controller.admin.problem.category.ProblemCategoryMapper;
 import io.javakata.controller.problem.category.response.GetProblemCategoryResponse;
 import io.javakata.repository.problem.category.ProblemCategory;
 import io.javakata.service.problem.category.ProblemCategoryService;

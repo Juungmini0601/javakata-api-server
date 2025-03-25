@@ -7,8 +7,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import io.javakata.common.error.ErrorType;
 import io.javakata.common.error.JavaKataException;
-import io.javakata.controller.admin.problem.category.request.CreateProblemCategoryRequest;
-import io.javakata.controller.admin.problem.category.request.UpdateProblemCategoryRequest;
+import io.javakata.controller.problem.category.request.CreateProblemCategoryRequest;
+import io.javakata.controller.problem.category.request.UpdateProblemCategoryRequest;
 import io.javakata.repository.problem.category.ProblemCategory;
 import io.javakata.repository.problem.category.ProblemCategoryCommand;
 import io.javakata.repository.problem.category.ProblemCategoryQuery;
