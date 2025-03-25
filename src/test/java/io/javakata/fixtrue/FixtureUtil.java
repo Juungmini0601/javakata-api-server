@@ -1,6 +1,8 @@
 package io.javakata.fixtrue;
 
 import java.util.Arrays;
+import java.util.List;
+import java.util.stream.LongStream;
 
 import net.jqwik.api.Arbitraries;
 
@@ -105,6 +107,18 @@ public class FixtureUtil {
 			.set("id", Arbitraries.longs().between(1L, 10L))
 			.set("name", request.categoryName())
 			.sample();
+	}
+
+	public static List<ProblemCategory> defaultProblemCategories(int length) {
+		List<Long> ids = LongStream.rangeClosed(1, length).boxed().toList();
+		String baseCategoryName = Arbitraries.strings()
+			.withCharRange('a', 'z')
+			.ofMinLength(10)
+			.ofMaxLength(200).sample();
+
+		return ids.stream().map(id -> ProblemCategory.builder()
+				.name(baseCategoryName + id).build())
+			.toList();
 	}
 
 	public static TokenClaim defaultTokenClaim() {
