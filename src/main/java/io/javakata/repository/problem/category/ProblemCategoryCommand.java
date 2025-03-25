@@ -18,4 +18,9 @@ public class ProblemCategoryCommand {
 	public ProblemCategory save(ProblemCategory problemCategory) {
 		return problemCategoryRepository.save(problemCategory);
 	}
+
+	@Transactional
+	public void deleteById(Long id) {
+		problemCategoryRepository.deleteById(id);
+	}
 }

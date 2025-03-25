@@ -49,4 +49,9 @@ public class ProblemCategoryService {
 		category.updateName(newCategoryName);
 		return category;
 	}
+
+	@Transactional
+	public void deleteCategory(final Long id) {
+		problemCategoryCommand.deleteById(id);
+	}
 }
