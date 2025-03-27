@@ -50,4 +50,9 @@ public class ProblemService {
 
 		return problem;
 	}
+
+	@Transactional
+	public void deleteProblem(final Long id) {
+		problemCommand.deleteById(id);
+	}
 }
