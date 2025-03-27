@@ -3,6 +3,7 @@ package io.javakata.repository.problem;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import io.javakata.controller.problem.testcase.request.CreateTestCaseRequest;
+import io.javakata.controller.problem.testcase.request.UpdateTestCaseRequest;
 import io.javakata.repository.BaseEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -49,12 +50,27 @@ public class TestCase extends BaseEntity {
 	@JsonBackReference // testcase -> problem 직렬화 X TODO 어차피 DTO로 변환되면서 바뀔 가능성 있음
 	private Problem problem;
 
+	public void update(UpdateTestCaseRequest request) {
+		this.input = request.getInput();
+		this.expectedOutput = request.getExpectedOutput();
+		this.isPublic = request.isPublic();
+	}
+
 	public void setProblem(Problem problem) {
 		this.problem = problem;
 	}
 
 	public static TestCase withCreateRequest(CreateTestCaseRequest request) {
 		return builder()
+			.input(request.getInput())
+			.expectedOutput(request.getExpectedOutput())
+			.isPublic(request.isPublic())
+			.build();
+	}
+
+	public static TestCase withUpdateRequest(UpdateTestCaseRequest request) {
+		return TestCase.builder()
+			.id(request.getId())
 			.input(request.getInput())
 			.expectedOutput(request.getExpectedOutput())
 			.isPublic(request.isPublic())

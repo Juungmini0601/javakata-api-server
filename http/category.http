@@ -1,8 +1,8 @@
 # 카테고리 생성
 POST http://localhost:8080/api/v1/admin/problems/categories
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqdW5nbWluaTA2MDFAZ21haWwuY29tIiwicm9sZXMiOlsiUk9MRV9BRE1JTiJdLCJpYXQiOjE3NDMwNTQ0NTcsImV4cCI6MTc0MzA1ODA1N30.nYpMkb2mqXoqXf0p-s1orrdnc2sxA3Dq1l7JbN0wved3QbWKvZR6ZRaoqC5Ty7y7xSrXncwDL3cWc6oz04Jg9Q
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqdW5nbWluaTA2MDFAZ21haWwuY29tIiwicm9sZXMiOlsiUk9MRV9BRE1JTiJdLCJpYXQiOjE3NDMwNjM2ODcsImV4cCI6MTc0MzA2NzI4N30.YVoTNu2aJo1JmPIetn_zb7p57FyH6Q8t1-bcJjv8MqQ68v8vu2rZ_L60L1hkCiLwoON5-58NEdV93ioUf82r5Q
 
 {
-  "categoryName": "테스트"
+  "categoryName": "수정 카테고리"
 }

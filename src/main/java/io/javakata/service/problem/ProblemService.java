@@ -6,8 +6,10 @@ import org.springframework.transaction.annotation.Transactional;
 import io.javakata.common.error.ErrorType;
 import io.javakata.common.error.JavaKataException;
 import io.javakata.controller.problem.request.CreateProblemRequest;
+import io.javakata.controller.problem.request.UpdateProblemRequest;
 import io.javakata.repository.problem.Problem;
 import io.javakata.repository.problem.ProblemCommand;
+import io.javakata.repository.problem.ProblemQuery;
 import io.javakata.repository.problem.category.ProblemCategory;
 import io.javakata.repository.problem.category.ProblemCategoryQuery;
 import lombok.RequiredArgsConstructor;
@@ -19,9 +21,10 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 public class ProblemService {
-
+	// TODO ProblemCategoryQuery는 ProblemQuery로 통합 하는게 좋아 보인다..
 	private final ProblemCategoryQuery problemCategoryQuery;
 	private final ProblemCommand problemCommand;
+	private final ProblemQuery problemQuery;
 
 	@Transactional
 	public Problem createProblem(CreateProblemRequest request) {
@@ -32,5 +35,19 @@ public class ProblemService {
 		Problem problem = Problem.withCreateRequestAndCategory(request, category);
 
 		return problemCommand.save(problem);
+	}
+
+	@Transactional
+	public Problem updateProblem(final Long id, UpdateProblemRequest request) {
+		ProblemCategory category = problemCategoryQuery.findById(request.getCategoryId())
+			.orElseThrow(() ->
+				new JavaKataException(ErrorType.VALIDATION_ERROR, "invalid category id: " + request.getCategoryId()));
+
+		Problem problem = problemQuery.findById(id)
+			.orElseThrow(() -> new JavaKataException(ErrorType.VALIDATION_ERROR, "not found problem id: " + id));
+
+		problem.update(request, category);
+
+		return problem;
 	}
 }
