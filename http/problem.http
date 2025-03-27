@@ -1,11 +1,11 @@
 # 문제 생성
 POST http://localhost:8080/api/v1/admin/problems
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqdW5nbWluaTA2MDFAZ21haWwuY29tIiwicm9sZXMiOlsiUk9MRV9BRE1JTiJdLCJpYXQiOjE3NDMwNjM2ODcsImV4cCI6MTc0MzA2NzI4N30.YVoTNu2aJo1JmPIetn_zb7p57FyH6Q8t1-bcJjv8MqQ68v8vu2rZ_L60L1hkCiLwoON5-58NEdV93ioUf82r5Q
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqdW5nbWluaTA2MDFAZ21haWwuY29tIiwicm9sZXMiOlsiUk9MRV9BRE1JTiJdLCJpYXQiOjE3NDMxMTc5MjAsImV4cCI6MTc0MzEyMTUyMH0.siToAqJHVOpSDr3xHm6kDGDtVp9XbXCx9JGlO9Wr19N70kTvNQASQeaLD2KTOwmHX1moX9EqFWDLTTm6KSQtKg
 
 {
   "title": "두 수의 합",
-  "level": "EASY",
+  "level": "HARD",
   "description": "두 개의 정수가 입력으로 주어졌을 때, 이 두 수의 합을 출력하는 프로그램을 작성하세요.",
   "constraints": "입력으로 주어지는 정수는 -1,000 이상 1,000 이하입니다.",
   "input": "두 개의 정수가 공백으로 구분되어 한 줄에 주어집니다.",
@@ -80,3 +80,8 @@ Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqdW5nbWluaTA2MDFAZ21haWwuY
 
 # 문제 단건 조회
 GET http://localhost:8080/api/v1/problems/5
+
+###
+
+# 문제 리스트 조회
+GET http://localhost:8080/api/v1/problems?levels=HARD
