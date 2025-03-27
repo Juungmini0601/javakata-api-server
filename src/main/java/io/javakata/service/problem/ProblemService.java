@@ -26,6 +26,12 @@ public class ProblemService {
 	private final ProblemCommand problemCommand;
 	private final ProblemQuery problemQuery;
 
+	@Transactional(readOnly = true)
+	public Problem findById(final Long id) {
+		return problemQuery.findById(id)
+			.orElseThrow(() -> new JavaKataException(ErrorType.VALIDATION_ERROR, "not found problem id: " + id));
+	}
+
 	@Transactional
 	public Problem createProblem(CreateProblemRequest request) {
 		ProblemCategory category = problemCategoryQuery.findById(request.getCategoryId())
