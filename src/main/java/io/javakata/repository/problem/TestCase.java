@@ -1,5 +1,8 @@
 package io.javakata.repository.problem;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
+import io.javakata.controller.problem.testcase.request.CreateTestCaseRequest;
 import io.javakata.repository.BaseEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -11,13 +14,17 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 /**
  * @author    : kimjungmin
  * Created on : 2025. 3. 23.
  */
+@ToString
+@Builder
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -39,5 +46,18 @@ public class TestCase extends BaseEntity {
 
 	@ManyToOne
 	@JoinColumn(name = "problem_id", nullable = false)
+	@JsonBackReference // testcase -> problem 직렬화 X TODO 어차피 DTO로 변환되면서 바뀔 가능성 있음
 	private Problem problem;
+
+	public void setProblem(Problem problem) {
+		this.problem = problem;
+	}
+
+	public static TestCase withCreateRequest(CreateTestCaseRequest request) {
+		return builder()
+			.input(request.getInput())
+			.expectedOutput(request.getExpectedOutput())
+			.isPublic(request.isPublic())
+			.build();
+	}
 }
