@@ -1,5 +1,8 @@
 package io.javakata.service.problem;
 
+import java.util.List;
+
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -9,7 +12,9 @@ import io.javakata.controller.problem.request.CreateProblemRequest;
 import io.javakata.controller.problem.request.UpdateProblemRequest;
 import io.javakata.repository.problem.Problem;
 import io.javakata.repository.problem.ProblemCommand;
+import io.javakata.repository.problem.ProblemListSearchParam;
 import io.javakata.repository.problem.ProblemQuery;
+import io.javakata.repository.problem.ProblemWithCategory;
 import io.javakata.repository.problem.category.ProblemCategory;
 import io.javakata.repository.problem.category.ProblemCategoryQuery;
 import lombok.RequiredArgsConstructor;
@@ -30,6 +35,18 @@ public class ProblemService {
 	public Problem findById(final Long id) {
 		return problemQuery.findById(id)
 			.orElseThrow(() -> new JavaKataException(ErrorType.VALIDATION_ERROR, "not found problem id: " + id));
+	}
+
+	@Transactional(readOnly = true)
+	public List<String> getDistinctLevels() {
+		return problemQuery.getDistinctLevels().stream()
+			.map(Object::toString)
+			.toList();
+	}
+
+	@Transactional(readOnly = true)
+	public Page<ProblemWithCategory> fetchProblemList(ProblemListSearchParam param) {
+		return problemQuery.getProblems(param);
 	}
 
 	@Transactional
