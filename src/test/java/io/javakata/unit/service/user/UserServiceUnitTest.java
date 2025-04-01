@@ -4,8 +4,6 @@ import static io.javakata.fixtrue.FixtureUtil.*;
 import static org.assertj.core.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
-import java.util.Optional;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
@@ -78,40 +76,6 @@ public class UserServiceUnitTest {
 			assertThatThrownBy(() -> userService.register(request))
 				.isInstanceOf(JavaKataException.class)
 				.hasMessage(ErrorType.CONFLICT_ERROR.getMessage());
-		}
-	}
-
-	@Nested
-	@DisplayName("회원 상세 조회 단위 테스트")
-	class FetchUserByEmailTest {
-
-		User user;
-
-		@BeforeEach
-		void setUp() {
-			user = defaultUser();
-		}
-
-		@Test
-		@DisplayName("성공")
-		void success() {
-			when(userQuery.findByEmail(anyString()))
-				.thenReturn(Optional.of(user));
-
-			User fetchedUser = userService.fetchUserByEmail(user.getEmail());
-
-			assertThat(fetchedUser.getEmail()).isEqualTo(user.getEmail());
-		}
-
-		@Test
-		@DisplayName("실패 - user not found")
-		void fail_user_not_exists() {
-			when(userQuery.findByEmail(anyString()))
-				.thenReturn(Optional.empty());
-
-			assertThatThrownBy(() -> userService.fetchUserByEmail(user.getEmail()))
-				.isInstanceOf(JavaKataException.class)
-				.hasMessage(ErrorType.AUTHENTICATION_ERROR.getMessage());
 		}
 	}
 }

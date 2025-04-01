@@ -40,15 +40,6 @@ public class Problem extends BaseEntity {
 	private String description;
 
 	@Column(nullable = false, columnDefinition = "TEXT")
-	private String input;
-
-	@Column(nullable = false, columnDefinition = "TEXT")
-	private String constraints; // 입력 제한조건
-
-	@Column(nullable = false, columnDefinition = "TEXT")
-	private String expectedOutput; // 문제의 기대 출력값 설명
-
-	@Column(nullable = false, columnDefinition = "TEXT")
 	private String baseCode;
 
 	@Column(nullable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")

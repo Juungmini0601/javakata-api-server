@@ -38,10 +38,4 @@ public class UserService {
 
 		return userCommand.save(user);
 	}
-
-	@Transactional
-	public User fetchUserByEmail(final String email) {
-		return userQuery.findByEmail(email)
-			.orElseThrow(() -> new JavaKataException(ErrorType.AUTHENTICATION_ERROR, "not found user"));
-	}
 }
