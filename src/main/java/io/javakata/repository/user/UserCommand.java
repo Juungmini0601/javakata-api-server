@@ -19,9 +19,4 @@ public class UserCommand {
 	public User save(User user) {
 		return userRepository.save(user);
 	}
-
-	@Transactional
-	public void delete(String email) {
-		userRepository.deleteByEmail(email);
-	}
 }

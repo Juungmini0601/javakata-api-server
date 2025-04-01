@@ -39,14 +39,9 @@ public class UserService {
 		return userCommand.save(user);
 	}
 
-	@Transactional(readOnly = true)
+	@Transactional
 	public User fetchUserByEmail(final String email) {
 		return userQuery.findByEmail(email)
 			.orElseThrow(() -> new JavaKataException(ErrorType.AUTHENTICATION_ERROR, "not found user"));
-	}
-
-	@Transactional
-	public void deleteUser(final String email) {
-		userCommand.delete(email);
 	}
 }

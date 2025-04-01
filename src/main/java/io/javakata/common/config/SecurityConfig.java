@@ -19,11 +19,7 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-
-import io.javakata.common.error.ErrorType;
 import io.javakata.common.filter.JwtAuthenticationFilter;
-import io.javakata.common.response.ApiResponse;
 import io.javakata.service.auth.TokenService;
 import lombok.RequiredArgsConstructor;
 
@@ -36,7 +32,6 @@ public class SecurityConfig {
 	};
 
 	private final TokenService tokenService;
-	private final ObjectMapper objectMapper;
 
 	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -75,9 +70,7 @@ public class SecurityConfig {
 			response.setStatus(HttpStatus.UNAUTHORIZED.value());
 			response.setCharacterEncoding(StandardCharsets.UTF_8.name());
 			response.setContentType(MediaType.APPLICATION_JSON_VALUE);
-			ApiResponse<?> error = ApiResponse.error(ErrorType.AUTHENTICATION_ERROR);
-
-			response.getWriter().write(objectMapper.writeValueAsString(error));
+			response.getWriter().write(authException.getMessage());
 		};
 	}
 
@@ -87,9 +80,7 @@ public class SecurityConfig {
 			response.setStatus(HttpStatus.FORBIDDEN.value());
 			response.setCharacterEncoding(StandardCharsets.UTF_8.name());
 			response.setContentType(MediaType.APPLICATION_JSON_VALUE);
-			ApiResponse<?> error = ApiResponse.error(ErrorType.AUTHORIZATION_ERROR);
-			
-			response.getWriter().write(objectMapper.writeValueAsString(error));
+			response.getWriter().write(accessDeniedException.getMessage());
 		};
 	}
 }
