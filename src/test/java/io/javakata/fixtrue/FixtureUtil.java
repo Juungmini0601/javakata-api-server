@@ -1,8 +1,11 @@
 package io.javakata.fixtrue;
 
+import java.util.Arrays;
+
 import net.jqwik.api.Arbitraries;
 
 import io.javakata.controller.admin.problem.category.request.CreateProblemCategoryRequest;
+import io.javakata.controller.admin.problem.category.request.UpdateProblemCategoryRequest;
 import io.javakata.controller.auth.request.SigninRequest;
 import io.javakata.controller.auth.request.TokenRefreshRequest;
 import io.javakata.controller.user.request.CreateUserRequest;
@@ -15,6 +18,8 @@ import io.javakata.repository.user.User;
 
 import com.navercorp.fixturemonkey.FixtureMonkey;
 import com.navercorp.fixturemonkey.api.introspector.ConstructorPropertiesArbitraryIntrospector;
+import com.navercorp.fixturemonkey.api.introspector.FailoverIntrospector;
+import com.navercorp.fixturemonkey.api.introspector.FieldReflectionArbitraryIntrospector;
 import com.navercorp.fixturemonkey.jakarta.validation.plugin.JakartaValidationPlugin;
 
 /**
@@ -23,7 +28,11 @@ import com.navercorp.fixturemonkey.jakarta.validation.plugin.JakartaValidationPl
  */
 public class FixtureUtil {
 	private static final FixtureMonkey beanValidationFixtureMonkey = FixtureMonkey.builder()
-		.objectIntrospector(ConstructorPropertiesArbitraryIntrospector.INSTANCE)
+		.objectIntrospector(new FailoverIntrospector(
+			Arrays.asList(
+				FieldReflectionArbitraryIntrospector.INSTANCE,
+				ConstructorPropertiesArbitraryIntrospector.INSTANCE
+			)))
 		.plugin(new JakartaValidationPlugin())
 		.defaultNotNull(true)
 		.build();
@@ -77,6 +86,21 @@ public class FixtureUtil {
 	}
 
 	public static ProblemCategory problemCategoryFromCreateRequest(CreateProblemCategoryRequest request) {
+		return beanValidationFixtureMonkey.giveMeBuilder(ProblemCategory.class)
+			.set("id", Arbitraries.longs().between(1L, 10L))
+			.set("name", request.categoryName())
+			.sample();
+	}
+
+	public static UpdateProblemCategoryRequest defaultUpdateProblemCategoryRequest() {
+		return beanValidationFixtureMonkey.giveMeOne(UpdateProblemCategoryRequest.class);
+	}
+
+	public static ProblemCategory defaultProblemCategory() {
+		return beanValidationFixtureMonkey.giveMeOne(ProblemCategory.class);
+	}
+
+	public static ProblemCategory problemCategoryFromUpdateRequest(UpdateProblemCategoryRequest request) {
 		return beanValidationFixtureMonkey.giveMeBuilder(ProblemCategory.class)
 			.set("id", Arbitraries.longs().between(1L, 10L))
 			.set("name", request.categoryName())
