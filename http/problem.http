@@ -1,0 +1,33 @@
+# 문제 생성
+POST http://localhost:8080/api/v1/admin/problems
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqdW5nbWluaTA2MDFAZ21haWwuY29tIiwicm9sZXMiOlsiUk9MRV9BRE1JTiJdLCJpYXQiOjE3NDMwNTQ0NTcsImV4cCI6MTc0MzA1ODA1N30.nYpMkb2mqXoqXf0p-s1orrdnc2sxA3Dq1l7JbN0wved3QbWKvZR6ZRaoqC5Ty7y7xSrXncwDL3cWc6oz04Jg9Q
+
+{
+  "title": "두 수의 합",
+  "level": "EASY",
+  "description": "두 개의 정수가 입력으로 주어졌을 때, 이 두 수의 합을 출력하는 프로그램을 작성하세요.",
+  "constraints": "입력으로 주어지는 정수는 -1,000 이상 1,000 이하입니다.",
+  "input": "두 개의 정수가 공백으로 구분되어 한 줄에 주어집니다.",
+  "expectedOutput": "두 정수의 합을 출력합니다.",
+  "baseCode": "import java.util.*;\n\npublic class Main {\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        // 여기에 코드를 작성하세요\n    }\n}",
+  "categoryId": 1,
+  "testCases": [
+    {
+      "input": "1 2",
+      "expectedOutput": "3",
+      "isPublic": true
+    },
+    {
+      "input": "-10 5",
+      "expectedOutput": "-5",
+      "isPublic": true
+    },
+    {
+      "input": "1000 -1000",
+      "expectedOutput": "0",
+      "isPublic": false
+    }
+  ]
+}
+

@@ -5,14 +5,18 @@ import java.util.List;
 import java.util.stream.LongStream;
 
 import net.jqwik.api.Arbitraries;
+import net.jqwik.api.arbitraries.StringArbitrary;
 
 import io.javakata.controller.auth.request.SigninRequest;
 import io.javakata.controller.auth.request.TokenRefreshRequest;
 import io.javakata.controller.problem.category.request.CreateProblemCategoryRequest;
 import io.javakata.controller.problem.category.request.UpdateProblemCategoryRequest;
+import io.javakata.controller.problem.request.CreateProblemRequest;
+import io.javakata.controller.problem.testcase.request.CreateTestCaseRequest;
 import io.javakata.controller.user.request.CreateUserRequest;
 import io.javakata.repository.auth.Token;
 import io.javakata.repository.auth.TokenClaim;
+import io.javakata.repository.problem.Level;
 import io.javakata.repository.problem.category.ProblemCategory;
 import io.javakata.repository.user.OAuthProvider;
 import io.javakata.repository.user.Role;
@@ -119,6 +123,40 @@ public class FixtureUtil {
 		return ids.stream().map(id -> ProblemCategory.builder()
 				.name(baseCategoryName + id).build())
 			.toList();
+	}
+
+	public static CreateProblemRequest defaultCreateProblemRequest() {
+		// TODO 이런 방식으로 쓰는게 좋아 보이는데?
+		StringArbitrary stringArbitrary = Arbitraries.strings()
+			.withCharRange('a', 'z')
+			.ofMinLength(10)
+			.ofMinLength(200);
+
+		return beanValidationFixtureMonkey.giveMeBuilder(CreateProblemRequest.class)
+			.set("title", stringArbitrary)
+			.set("level", Arbitraries.of(Level.EASY, Level.MEDIUM, Level.HARD))
+			.set("description", stringArbitrary)
+			.set("constraints", stringArbitrary)
+			.set("constraints", stringArbitrary)
+			.set("input", stringArbitrary)
+			.set("expectedOutput", stringArbitrary)
+			.set("baseCode", stringArbitrary)
+			.set("categoryId", Arbitraries.longs().between(1L, 10L))
+			.set("testCases", defaultCreateTestCaseRequests(3))
+			.sample();
+	}
+
+	public static List<CreateTestCaseRequest> defaultCreateTestCaseRequests(int size) {
+		StringArbitrary stringArbitrary = Arbitraries.strings()
+			.withCharRange('a', 'z')
+			.ofMinLength(100)
+			.ofMinLength(200);
+
+		return beanValidationFixtureMonkey.giveMeBuilder(CreateTestCaseRequest.class)
+			.set("input", stringArbitrary)
+			.set("expectedOutput", stringArbitrary)
+			.set("isPublic", Arbitraries.of(true, false))
+			.sampleList(size);
 	}
 
 	public static TokenClaim defaultTokenClaim() {
