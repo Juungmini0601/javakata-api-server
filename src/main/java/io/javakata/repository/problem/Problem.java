@@ -2,10 +2,16 @@ package io.javakata.repository.problem;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
+import io.javakata.common.error.ErrorType;
+import io.javakata.common.error.JavaKataException;
 import io.javakata.controller.problem.request.CreateProblemRequest;
+import io.javakata.controller.problem.request.UpdateProblemRequest;
+import io.javakata.controller.problem.testcase.request.UpdateTestCaseRequest;
 import io.javakata.repository.BaseEntity;
 import io.javakata.repository.problem.category.ProblemCategory;
 import jakarta.persistence.CascadeType;
@@ -75,6 +81,36 @@ public class Problem extends BaseEntity {
 	@ToString.Exclude
 	private List<TestCase> testCases;
 
+	public void update(UpdateProblemRequest request, ProblemCategory category) {
+		title = request.getTitle();
+		level = request.getLevel();
+		description = request.getDescription();
+		constraints = request.getConstraints();
+		input = request.getInput();
+		expectedOutput = request.getExpectedOutput();
+		baseCode = request.getBaseCode();
+		this.category = category;
+
+		// TODO Null이어도 수정되게 해야 될 거 같은데 일단은 Null인 경우 없다고 가정
+		Map<Long, UpdateTestCaseRequest> existingMap = request.getTestCases().stream()
+			.collect(Collectors.toMap(UpdateTestCaseRequest::getId, tc -> tc));
+
+		testCases.forEach(testCase -> {
+			UpdateTestCaseRequest updateTestCaseRequest = existingMap.get(testCase.getId());
+			if (updateTestCaseRequest == null) {
+				throw new JavaKataException(ErrorType.VALIDATION_ERROR, "not found testCase Id:" + testCase.getId());
+			}
+
+			testCase.update(updateTestCaseRequest);
+		});
+	}
+
+	// TODO 연관관계 편의 메서드 블로깅
+	public void addTestCase(TestCase testCase) {
+		testCases.add(testCase);
+		testCase.setProblem(this);
+	}
+
 	public static Problem withCreateRequestAndCategory(CreateProblemRequest request, ProblemCategory category) {
 		Problem problem = builder()
 			.title(request.getTitle())
@@ -94,11 +130,5 @@ public class Problem extends BaseEntity {
 		});
 
 		return problem;
-	}
-
-	// TODO 연관관계 편의 메서드 블로깅
-	public void addTestCase(TestCase testCase) {
-		testCases.add(testCase);
-		testCase.setProblem(this);
 	}
 }

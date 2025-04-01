@@ -77,4 +77,11 @@ public class ProblemServiceUnitTest {
 				.hasMessageContaining(ErrorType.VALIDATION_ERROR.getMessage());
 		}
 	}
+
+	@Nested
+	@DisplayName("문제 수정 단위 테스트")
+	class UpdateProblemTest {
+		// 테스트케이스3개, 카테고리 1개, 문제 데이터 1개
+		// ProblemCategory
+	}
 }
