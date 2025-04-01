@@ -17,4 +17,8 @@ public class ProblemCommand {
 	public Problem save(Problem problem) {
 		return problemRepository.save(problem);
 	}
+
+	public void deleteById(Long id) {
+		problemRepository.deleteById(id);
+	}
 }
