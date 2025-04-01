@@ -28,7 +28,7 @@ public class JwtTokenService implements TokenService {
 
 	@Override
 	public String generateAccessToken(TokenClaim tokenClaim) {
-		long now = System.currentTimeMillis();
+		final long now = System.currentTimeMillis();
 		Date expireDate = new Date(now + jwtConfig.getAccessToken().expire());
 		SecretKey secretKey = Keys.hmacShaKeyFor(jwtConfig.getAccessToken().secret().getBytes());
 
@@ -43,7 +43,7 @@ public class JwtTokenService implements TokenService {
 
 	@Override
 	public String generateRefreshToken(TokenClaim tokenClaim) {
-		long now = System.currentTimeMillis();
+		final long now = System.currentTimeMillis();
 		Date expireDate = new Date(now + jwtConfig.getRefreshToken().expire());
 		SecretKey secretKey = Keys.hmacShaKeyFor(jwtConfig.getRefreshToken().secret().getBytes());
 
@@ -58,18 +58,16 @@ public class JwtTokenService implements TokenService {
 
 	@Override
 	public Token generateToken(TokenClaim tokenClaim) {
-		String accessToken = generateAccessToken(tokenClaim);
-		String refreshToken = generateRefreshToken(tokenClaim);
-		return new Token(accessToken, refreshToken);
+		return new Token(generateAccessToken(tokenClaim), generateRefreshToken(tokenClaim));
 	}
 
 	@Override
-	public TokenClaim parseToken(String token) {
+	public TokenClaim parseToken(final String token) {
 		SecretKey secretKey = Keys.hmacShaKeyFor(jwtConfig.getRefreshToken().secret().getBytes());
 		Jws<Claims> claimsJws = Jwts.parser().verifyWith(secretKey).build()
 			.parseSignedClaims(token);
 
-		String email = claimsJws.getPayload().getSubject();
+		final String email = claimsJws.getPayload().getSubject();
 		List<?> roles = claimsJws.getPayload().get("roles", List.class);
 
 		return new TokenClaim(email, roles.stream().map(Object::toString).toList());

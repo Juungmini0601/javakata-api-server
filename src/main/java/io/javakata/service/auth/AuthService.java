@@ -45,8 +45,8 @@ public class AuthService {
 		return token;
 	}
 
-	public Token refreshToken(String accessToken) {
-		String refreshToken = tokenQuery.getRefreshToken(accessToken)
+	public Token refreshToken(final String accessToken) {
+		final String refreshToken = tokenQuery.getRefreshToken(accessToken)
 			.orElseThrow(() -> new JavaKataException(ErrorType.AUTHENTICATION_ERROR, "Invalid Refresh Token"));
 
 		TokenClaim tokenClaim = tokenService.parseToken(refreshToken);

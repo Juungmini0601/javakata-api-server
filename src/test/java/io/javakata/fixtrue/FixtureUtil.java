@@ -41,6 +41,17 @@ public class FixtureUtil {
 			.sample();
 	}
 
+	public static User userFromEmailAndRole(String email, Role role) {
+		return beanValidationFixtureMonkey.giveMeBuilder(User.class)
+			.set("id", Arbitraries.longs().between(1L, 10L))
+			.set("email", email)
+			.set("password", Arbitraries.strings().withCharRange('a', 'z').ofMinLength(10).ofMaxLength(200))
+			.set("nickname", Arbitraries.strings().withCharRange('a', 'z').ofMinLength(10).ofMaxLength(200))
+			.set("role", role)
+			.set("oAuthProvider", OAuthProvider.LOCAL)
+			.sample();
+	}
+
 	public static User userFromCreateUserRequest(CreateUserRequest request) {
 		return beanValidationFixtureMonkey.giveMeBuilder(User.class)
 			.set("id", Arbitraries.longs().between(1L, 10L))
