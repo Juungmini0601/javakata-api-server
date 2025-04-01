@@ -1,11 +1,12 @@
-package io.javakata.controller.admin.problem.category;
+package io.javakata.controller.problem.category;
 
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 
-import io.javakata.controller.admin.problem.category.response.CreateProblemCategoryResponse;
-import io.javakata.controller.admin.problem.category.response.UpdateProblemCategoryResponse;
+import io.javakata.controller.problem.category.response.CreateProblemCategoryResponse;
+import io.javakata.controller.problem.category.response.GetProblemCategoryResponse;
+import io.javakata.controller.problem.category.response.UpdateProblemCategoryResponse;
 import io.javakata.repository.problem.category.ProblemCategory;
 
 /**
@@ -22,4 +23,7 @@ public interface ProblemCategoryMapper {
 
 	@Mapping(source = "name", target = "categoryName")
 	UpdateProblemCategoryResponse toUpdateProblemCategoryResponse(ProblemCategory category);
+
+	@Mapping(source = "name", target = "categoryName")
+	GetProblemCategoryResponse toGetProblemCategoryResponse(ProblemCategory category);
 }

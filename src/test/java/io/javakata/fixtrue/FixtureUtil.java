@@ -1,13 +1,15 @@
 package io.javakata.fixtrue;
 
 import java.util.Arrays;
+import java.util.List;
+import java.util.stream.LongStream;
 
 import net.jqwik.api.Arbitraries;
 
-import io.javakata.controller.admin.problem.category.request.CreateProblemCategoryRequest;
-import io.javakata.controller.admin.problem.category.request.UpdateProblemCategoryRequest;
 import io.javakata.controller.auth.request.SigninRequest;
 import io.javakata.controller.auth.request.TokenRefreshRequest;
+import io.javakata.controller.problem.category.request.CreateProblemCategoryRequest;
+import io.javakata.controller.problem.category.request.UpdateProblemCategoryRequest;
 import io.javakata.controller.user.request.CreateUserRequest;
 import io.javakata.repository.auth.Token;
 import io.javakata.repository.auth.TokenClaim;
@@ -105,6 +107,18 @@ public class FixtureUtil {
 			.set("id", Arbitraries.longs().between(1L, 10L))
 			.set("name", request.categoryName())
 			.sample();
+	}
+
+	public static List<ProblemCategory> defaultProblemCategories(int length) {
+		List<Long> ids = LongStream.rangeClosed(1, length).boxed().toList();
+		String baseCategoryName = Arbitraries.strings()
+			.withCharRange('a', 'z')
+			.ofMinLength(10)
+			.ofMaxLength(200).sample();
+
+		return ids.stream().map(id -> ProblemCategory.builder()
+				.name(baseCategoryName + id).build())
+			.toList();
 	}
 
 	public static TokenClaim defaultTokenClaim() {

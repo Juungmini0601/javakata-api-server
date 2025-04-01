@@ -1,4 +1,4 @@
-package io.javakata.controller.admin.problem.category.response;
+package io.javakata.controller.problem.category.response;
 
 import java.time.LocalDateTime;
 
@@ -6,7 +6,7 @@ import java.time.LocalDateTime;
  * @author    : kimjungmin
  * Created on : 2025. 3. 25.
  */
-public record CreateProblemCategoryResponse(
+public record GetProblemCategoryResponse(
 	Long id,
 	String categoryName,
 	LocalDateTime createdAt,

@@ -1,12 +1,14 @@
 package io.javakata.service.problem.category;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import io.javakata.common.error.ErrorType;
 import io.javakata.common.error.JavaKataException;
-import io.javakata.controller.admin.problem.category.request.CreateProblemCategoryRequest;
-import io.javakata.controller.admin.problem.category.request.UpdateProblemCategoryRequest;
+import io.javakata.controller.problem.category.request.CreateProblemCategoryRequest;
+import io.javakata.controller.problem.category.request.UpdateProblemCategoryRequest;
 import io.javakata.repository.problem.category.ProblemCategory;
 import io.javakata.repository.problem.category.ProblemCategoryCommand;
 import io.javakata.repository.problem.category.ProblemCategoryQuery;
@@ -21,6 +23,11 @@ import lombok.RequiredArgsConstructor;
 public class ProblemCategoryService {
 	private final ProblemCategoryCommand problemCategoryCommand;
 	private final ProblemCategoryQuery problemCategoryQuery;
+
+	@Transactional(readOnly = true)
+	public List<ProblemCategory> findAll() {
+		return problemCategoryQuery.findAll();
+	}
 
 	@Transactional
 	public ProblemCategory createCategory(CreateProblemCategoryRequest request) {

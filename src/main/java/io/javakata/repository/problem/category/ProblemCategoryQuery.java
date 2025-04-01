@@ -1,5 +1,6 @@
 package io.javakata.repository.problem.category;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.stereotype.Repository;
@@ -24,5 +25,10 @@ public class ProblemCategoryQuery {
 	@Transactional(readOnly = true)
 	public Optional<ProblemCategory> findById(final Long id) {
 		return problemCategoryRepository.findById(id);
+	}
+
+	@Transactional
+	public List<ProblemCategory> findAll() {
+		return problemCategoryRepository.findAll();
 	}
 }
