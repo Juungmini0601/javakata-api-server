@@ -1,0 +1,11 @@
+# 이미지 업로드
+POST http://localhost:8080/api/v1/admin/image
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqdW5nbWluaTA2MDFAZ21haWwuY29tIiwicm9sZXMiOlsiUk9MRV9BRE1JTiJdLCJpYXQiOjE3NDMxMjAxNjAsImV4cCI6MTc0MzEyMzc2MH0.fjD9IXNrWJ0-CIscHFXBYz7RpTdTxj3gWq_Ze8vQp-wffkn2r1oAzLchK-Yl0mbFeebMAT8y2MCH_1n5j1eQqQ
+Content-Type: multipart/form-data; boundary=boundary
+
+--boundary
+Content-Disposition: form-data; name="file"; filename="img.png";
+Content-Type: image/png
+
+<./img.png
+--boundary--
