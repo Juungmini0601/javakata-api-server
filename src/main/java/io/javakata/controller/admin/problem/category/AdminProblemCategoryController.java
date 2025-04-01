@@ -1,5 +1,6 @@
 package io.javakata.controller.admin.problem.category;
 
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -43,5 +44,14 @@ public class AdminProblemCategoryController {
 		ProblemCategory category = problemCategoryService.updateCategory(categoryId, request);
 
 		return ApiResponse.success(ProblemCategoryMapper.INSTANCE.toUpdateProblemCategoryResponse(category));
+	}
+
+	@DeleteMapping("/api/v1/admin/problems/categories/{categoryId}")
+	public ApiResponse<?> deleteProblemCategory(
+		@PathVariable Long categoryId
+	) {
+		problemCategoryService.deleteCategory(categoryId);
+
+		return ApiResponse.success();
 	}
 }

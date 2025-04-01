@@ -211,4 +211,60 @@ public class AdminProblemCategoryControllerUnitTest {
 				.andExpect(jsonPath("$.error.code").value(ErrorType.AUTHORIZATION_ERROR.getCode().toString()));
 		}
 	}
+
+	@Nested
+	@DisplayName("어드민 - 문제 수정 단위 테스트")
+	class DeleteProblemCategoryTest {
+
+		final String baseEndPoint = "/api/v1/admin/problems/categories";
+
+		ProblemCategory category;
+
+		@BeforeEach
+		void setup() {
+			category = defaultProblemCategory();
+		}
+
+		@Test
+		@DisplayName("성공")
+		@WithMockUser(username = "testuser@email.com", roles = {"ADMIN"})
+		void success() throws Exception {
+			final Long categoryId = category.getId();
+			doNothing().when(problemCategoryService).deleteCategory(anyLong());
+
+			mockMvc.perform(delete(baseEndPoint + "/" + categoryId)
+					.contentType(MediaType.APPLICATION_JSON))
+				.andDo(print())
+				.andExpect(status().isOk())
+				.andExpect(jsonPath("$.result").value(RESULT_SUCCESS));
+		}
+
+		@Test
+		@DisplayName("실패 - 인증 되지 않은 유저")
+		void fail_when_not_authentication() throws Exception {
+			final Long categoryId = category.getId();
+
+			mockMvc.perform(delete(baseEndPoint + "/" + categoryId)
+					.contentType(MediaType.APPLICATION_JSON))
+				.andDo(print())
+				.andExpect(status().isUnauthorized())
+				.andExpect(jsonPath("$.result").value(RESULT_ERROR))
+				.andExpect(jsonPath("$.error.code").value(ErrorType.AUTHENTICATION_ERROR.getCode().toString()));
+		}
+
+
+		@Test
+		@DisplayName("실패 - 권한 없는 유저")
+		@WithMockUser(username = "testuser@email.com")
+		void fail_when_not_admin_user_request() throws Exception {
+			final Long categoryId = category.getId();
+
+			mockMvc.perform(delete(baseEndPoint + "/" + categoryId)
+					.contentType(MediaType.APPLICATION_JSON))
+				.andDo(print())
+				.andExpect(status().isForbidden())
+				.andExpect(jsonPath("$.result").value(RESULT_ERROR))
+				.andExpect(jsonPath("$.error.code").value(ErrorType.AUTHORIZATION_ERROR.getCode().toString()));
+		}
+	}
 }
