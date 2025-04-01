@@ -59,15 +59,11 @@ dependencies {
     // Security
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'org.springframework.security:spring-security-test'
-    // TestContainer
-    testImplementation 'org.springframework.boot:spring-boot-testcontainers'
-    testImplementation 'org.testcontainers:mysql'
     // FixtureMonkey
     testImplementation("com.navercorp.fixturemonkey:fixture-monkey-starter:1.1.8")
     testImplementation("com.navercorp.fixturemonkey:fixture-monkey-jakarta-validation:1.1.10")
     // Test H2
     testImplementation 'com.h2database:h2'
-
 
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
     developmentOnly 'org.springframework.boot:spring-boot-docker-compose'
