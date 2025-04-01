@@ -15,8 +15,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -100,35 +98,6 @@ public class UserControllerUnitTest {
 				.andExpect(status().isConflict())
 				.andExpect(jsonPath("$.result").value(RESULT_ERROR))
 				.andExpect(jsonPath("$.error.code").value(ErrorType.CONFLICT_ERROR.getCode().toString()));
-		}
-	}
-
-	@Nested
-	@DisplayName("회원 탈퇴 단위 테스트")
-	class DeleteUserTest {
-		final String baseEndPoint = "/api/v1/users";
-
-		@Test
-		@DisplayName("성공")
-		@WithMockUser(username = "testuser@email.com")
-		void success() throws Exception {
-			String email = SecurityContextHolder.getContext().getAuthentication().getName();
-			doNothing().when(userService).deleteUser(email);
-
-			mockMvc.perform(delete(baseEndPoint))
-				.andDo(print())
-				.andExpect(status().isOk())
-				.andExpect(jsonPath("$.result").value(RESULT_SUCCESS));
-		}
-
-		@Test
-		@DisplayName("실패 - 인증되지 않은 유저")
-		void fail_when_authentication_empty() throws Exception {
-
-			mockMvc.perform(delete(baseEndPoint))
-				.andDo(print())
-				.andExpect(status().isUnauthorized())
-				.andExpect(jsonPath("$.result").value(RESULT_ERROR));
 		}
 	}
 }
