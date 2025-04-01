@@ -1,5 +1,7 @@
 package io.javakata.controller.user;
 
+import org.springframework.security.core.Authentication;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -30,5 +32,12 @@ public class UserController {
 		User registeredUser = userService.register(request);
 
 		return ApiResponse.success(UserMapper.INSTANCE.toCreateUserResponse(registeredUser));
+	}
+
+	@DeleteMapping("/api/v1/users")
+	public ApiResponse<?> delete(Authentication authentication) {
+		userService.deleteUser(authentication.getName());
+
+		return ApiResponse.success();
 	}
 }
