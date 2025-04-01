@@ -55,6 +55,7 @@ public class SecurityConfig {
 			.requestMatchers(HttpMethod.POST, "/api/*/users").permitAll()
 			.requestMatchers(HttpMethod.POST, "/api/*/auth/token").permitAll()
 			.requestMatchers(HttpMethod.POST, "/api/*/auth/token/refresh").permitAll()
+			.requestMatchers("/api/*/admin/**").hasRole("ADMIN")
 			.anyRequest().authenticated()
 		);
 
@@ -88,7 +89,7 @@ public class SecurityConfig {
 			response.setCharacterEncoding(StandardCharsets.UTF_8.name());
 			response.setContentType(MediaType.APPLICATION_JSON_VALUE);
 			ApiResponse<?> error = ApiResponse.error(ErrorType.AUTHORIZATION_ERROR);
-			
+
 			response.getWriter().write(objectMapper.writeValueAsString(error));
 		};
 	}

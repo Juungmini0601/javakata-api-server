@@ -53,7 +53,7 @@ public class AuthServiceUnitTest {
 	private PasswordEncoder passwordEncoder;
 
 	@Nested
-	@DisplayName("토큰 발급 테스트")
+	@DisplayName("토큰 발급 단위 테스트")
 	class GenerateTokenTest {
 		SigninRequest request;
 		User user;
@@ -149,7 +149,7 @@ public class AuthServiceUnitTest {
 		void fail_when_refresh_token_expired() {
 			when(tokenQuery.getRefreshToken(anyString()))
 				.thenReturn(Optional.empty());
-			
+
 			assertThatThrownBy(() -> authService.refreshToken(token.getRefreshToken()))
 				.isInstanceOf(JavaKataException.class)
 				.hasMessageContaining(ErrorType.AUTHENTICATION_ERROR.getMessage());

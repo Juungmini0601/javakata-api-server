@@ -2,11 +2,13 @@ package io.javakata.fixtrue;
 
 import net.jqwik.api.Arbitraries;
 
+import io.javakata.controller.admin.problem.category.request.CreateProblemCategoryRequest;
 import io.javakata.controller.auth.request.SigninRequest;
 import io.javakata.controller.auth.request.TokenRefreshRequest;
 import io.javakata.controller.user.request.CreateUserRequest;
 import io.javakata.repository.auth.Token;
 import io.javakata.repository.auth.TokenClaim;
+import io.javakata.repository.problem.category.ProblemCategory;
 import io.javakata.repository.user.OAuthProvider;
 import io.javakata.repository.user.Role;
 import io.javakata.repository.user.User;
@@ -63,13 +65,21 @@ public class FixtureUtil {
 			.sample();
 	}
 
-	public static User userFromSigninRequest(SigninRequest request) {
-		return beanValidationFixtureMonkey.giveMeBuilder(User.class)
+	public static ProblemCategory defaultProblemCategoryWithoutId() {
+		return beanValidationFixtureMonkey.giveMeBuilder(ProblemCategory.class)
+			.set("id", null)
+			.set("name", Arbitraries.strings().withCharRange('a', 'z').ofMinLength(10).ofMaxLength(200))
+			.sample();
+	}
+
+	public static CreateProblemCategoryRequest defaultCreateProblemCategoryRequest() {
+		return beanValidationFixtureMonkey.giveMeOne(CreateProblemCategoryRequest.class);
+	}
+
+	public static ProblemCategory problemCategoryFromCreateRequest(CreateProblemCategoryRequest request) {
+		return beanValidationFixtureMonkey.giveMeBuilder(ProblemCategory.class)
 			.set("id", Arbitraries.longs().between(1L, 10L))
-			.set("email", request.email())
-			.set("password", request.password())
-			.set("role", Role.ROLE_USER)
-			.set("oAuthProvider", OAuthProvider.LOCAL)
+			.set("name", request.categoryName())
 			.sample();
 	}
 
